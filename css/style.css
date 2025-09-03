@@ -1,0 +1,87 @@
+/*
+CSS Reset: Zera as margens e paddings padrões dos navegadores
+e garante que padding e border sejam incluídos no tamanho total do elemento.
+*/
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+/* Estilo do topo da página (header).
+Usa flexbox para alinhar e espaçar os itens.
+*/
+.topo {
+    background-color: #2f3640;
+    display: flex;
+    justify-content: space-between;
+    padding: 16px 0;
+    color: white;
+    align-items: center;
+}
+
+/* Estilo para os links da lista no header.
+Define a cor do texto para branco.
+*/
+header li a {
+    color: white;
+}
+
+/* Estilo geral para o container de artigos.
+Aplica flexbox para o layout interno e um padding para espaçamento.
+Essa classe agora substitui as classes .article e .corpo.
+*/
+.corpo-secao {
+    padding: 10px;
+    display: flex;
+    align-items: center;
+    /* Centraliza verticalmente o conteúdo dentro do flexbox */
+}
+
+/* Estilo geral para as imagens dentro dos artigos.
+  Define uma altura fixa e um espaço à direita.
+*/
+.corpo-secao img {
+    margin-right: 20px;
+    height: 180px;
+}
+
+/* Estilo para os links de categorias, que se repetem em todas as seções.
+  Refatoramos o código para ter apenas uma regra para todos os links.
+*/
+.link-categoria {
+    text-decoration: none;
+    color: white;
+    padding: 3px;
+    background-color: blue;
+    font-weight: bold;
+    font-size: 1.2em;
+    display: inline;
+}
+
+/* Espaço entre o título da seção e o conteúdo (imagem).
+Usamos margin-bottom no h2 para empurrar o conteúdo para baixo.
+*/
+section h2 {
+    margin-bottom: 20px;
+}
+
+/* Estilos específicos para cada seção, apenas com a cor de fundo.
+Isso evita a repetição de código para os links e imagens.
+*/
+#sports {
+    background-color: rgb(51, 152, 51);
+}
+
+#economy {
+    background-color: rgb(255, 204, 0);
+}
+
+#tec {
+    background-color: rgb(41, 41, 128);
+}
+
+#entretenimento {
+    background-color: rgb(113, 28, 22);
+}
