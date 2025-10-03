@@ -25,4 +25,4 @@ form.addEventListener('submit', function (e) {
         mensagemResultado.innerHTML = `Formulário inválido! O número <strong>${numeroB}</strong> não é maior que o número <strong>${numeroA}</strong>.`;
         mensagemResultado.className = 'mensagem mensagem-erro'; // Adiciona a classe de erro
     }
-});
+}); //teste
