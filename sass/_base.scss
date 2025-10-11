@@ -1,0 +1,26 @@
+@use 'variaveis';
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: variaveis.$fonte-principal;
+}
+
+body {
+    background-color: variaveis.$cor-fundo;
+}
+
+li {
+    list-style: none;
+}
+
+.container {
+    max-width: 1024px;
+    width: 100%;
+    margin: 0 auto;
+
+    @media screen and (max-width: variaveis.$breakpoint-tablet) {
+        max-width: 80%;
+    }
+}

@@ -1,0 +1,5 @@
+// Importa todos os módulos na ordem de cascata desejada
+@use 'variaveis';
+@use 'base';
+@use 'header';
+@use 'produtos';
