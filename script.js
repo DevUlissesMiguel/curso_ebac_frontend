@@ -1,28 +1,30 @@
-// Seleciona o formulário pelo ID
-const form = document.getElementById('form-validador');
+// Garante que o código só será executado após o carregamento completo da página
+$(document).ready(function () {
 
-// Adiciona um "ouvinte" para o evento de submissão do formulário
-form.addEventListener('submit', function (e) {
-    // Impede o comportamento padrão do formulário (que é recarregar a página)
-    e.preventDefault();
+    // 4) Controla o evento de submissão do formulário
+    $('#form-tarefa').on('submit', function (event) {
+        // Impede o comportamento padrão de recarregar a página
+        event.preventDefault();
 
-    // Seleciona os campos de input e a área de mensagem
-    const campoA = document.getElementById('campo-a');
-    const campoB = document.getElementById('campo-b');
-    const mensagemResultado = document.getElementById('mensagem-resultado');
+        // Pega o valor digitado no campo de input
+        const nomeTarefa = $('#nome-tarefa').val();
 
-    // Converte os valores dos campos para números (parseFloat para aceitar decimais)
-    const numeroA = parseFloat(campoA.value);
-    const numeroB = parseFloat(campoB.value);
+        // Cria um novo elemento <li> com o texto da tarefa
+        const novoItem = $('<li></li>').text(nomeTarefa);
 
-    // Valida se o número B é maior que o número A
-    if (numeroB > numeroA) {
-        // Exibe mensagem positiva
-        mensagemResultado.innerHTML = `Formulário válido! O número <strong>${numeroB}</strong> é maior que o número <strong>${numeroA}</strong>.`;
-        mensagemResultado.className = 'mensagem mensagem-sucesso'; // Adiciona a classe de sucesso
-    } else {
-        // Exibe mensagem negativa
-        mensagemResultado.innerHTML = `Formulário inválido! O número <strong>${numeroB}</strong> não é maior que o número <strong>${numeroA}</strong>.`;
-        mensagemResultado.className = 'mensagem mensagem-erro'; // Adiciona a classe de erro
-    }
-}); //teste
+        // 2) Adiciona o novo item (<li>) à lista (<ul>)
+        $('#lista-tarefas').append(novoItem);
+
+        // Limpa o campo do formulário após adicionar a tarefa
+        $('#nome-tarefa').val('');
+    });
+
+    // 4) Controla o evento de clique nos itens da lista
+    // Usamos 'on' na lista pai (<ul>) para garantir que o evento funcione
+    // também para os novos itens adicionados dinamicamente (delegação de evento).
+    $('#lista-tarefas').on('click', 'li', function () {
+        // 3) Adiciona ou remove a classe 'completed' no item clicado
+        $(this).toggleClass('completed');
+    });
+
+});
