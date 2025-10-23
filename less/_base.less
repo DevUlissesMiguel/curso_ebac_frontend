@@ -1,0 +1,28 @@
+@import '_variaveis';
+@import '_mapas'; // Importa o mapa de breakpoints
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: @fonte-principal;
+}
+
+body {
+    background-color: @cor-fundo;
+}
+
+li {
+    list-style: none;
+}
+
+.container {
+    max-width: @largura-desktop;
+    width: 100%;
+    margin: 0 auto;
+
+    // Aninhamento da media query, consumindo o mapa
+    @media screen and (max-width: @breakpoints[tablet]) {
+        max-width: 80%;
+    }
+}
