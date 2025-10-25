@@ -2,7 +2,7 @@
 document.addEventListener('DOMContentLoaded', () => {
 
     // 1) Nome do usuário do GitHub que queremos buscar
-    const userName = 'ogiansouza';
+    const userName = 'DevUlissesMiguel';
     const endpoint = `https://api.github.com/users/${userName}`;
 
     // 2) Seleciona os elementos do HTML que vamos atualizar
