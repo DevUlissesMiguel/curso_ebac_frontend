@@ -1,127 +1,37 @@
-/*
- * ========================================
- * 1) CRIAÇÃO DA ABSTRAÇÃO (CLASSE PAI)
- * ========================================
- */
+// 1) Criando o array de objetos (alunos)
+const alunos = [
+    { nome: 'Ana Silva', nota: 8.5 },
+    { nome: 'Bruno Costa', nota: 4.2 },
+    { nome: 'Carla Mendes', nota: 6.0 },
+    { nome: 'Daniel Moreira', nota: 9.1 },
+    { nome: 'Elisa Fernandes', nota: 5.8 },
+    { nome: 'Fábio Guedes', nota: 7.3 }
+];
 
 /**
- * Abstração de um Veículo.
- * Esta classe serve como base (pai) para outros tipos de veículos.
- * Ela contém os atributos e métodos que todos os veículos compartilham.
+ * 2) Função que retorna apenas os alunos com nota maior ou igual a 6.
+ *
+ * @param {Array} arrayDeAlunos - O array original de alunos.
+ * @returns {Array} - Um novo array contendo apenas os alunos aprovados.
  */
-class Veiculo {
-    constructor(marca, modelo, ano) {
-        if (new.target === Veiculo) {
-            throw new Error("Não é possível instanciar a classe abstrata 'Veiculo' diretamente.");
-        }
-        this.marca = marca;
-        this.modelo = modelo;
-        this.ano = ano;
-    }
+function filtrarAlunosAprovados(arrayDeAlunos) {
+    // Usamos o método .filter() para criar um novo array
+    // apenas com os elementos que passam no teste (retornam true).
+    const alunosAprovados = arrayDeAlunos.filter(aluno => {
+        return aluno.nota >= 6;
+    });
 
-    // Método que será compartilhado por todas as classes filhas
-    ligar() {
-        console.log(`O veículo ${this.modelo} está ligando o motor.`);
-    }
-
-    // Método que será compartilhado por todas as classes filhas
-    desligar() {
-        console.log(`O veículo ${this.modelo} está desligando o motor.`);
-    }
-
-    // Método "abstrato" (feito para ser sobrescrito pelas classes filhas)
-    obterDetalhes() {
-        throw new Error("O método 'obterDetalhes()' deve ser implementado pela classe filha.");
-    }
+    return alunosAprovados;
 }
 
-/*
- * ========================================
- * 2) CRIAÇÃO DAS CLASSES HERDEIRAS (FILHAS)
- * ========================================
- */
+// --- Exemplo de uso ---
 
-/**
- * Classe 'Carro' que herda de 'Veiculo'.
- * Ela usa a palavra-chave 'extends' para herdar
- * e 'super()' para chamar o construtor da classe pai.
- */
-class Carro extends Veiculo {
-    constructor(marca, modelo, ano, numeroDePortas) {
-        // 'super' chama o construtor da classe Pai (Veiculo)
-        super(marca, modelo, ano);
+// Chamamos a função passando o nosso array de alunos
+const alunosAprovados = filtrarAlunosAprovados(alunos);
 
-        // Atributo específico do Carro
-        this.numeroDePortas = numeroDePortas;
-    }
+// Exibe o resultado no console
+console.log('Todos os Alunos:');
+console.table(alunos);
 
-    // Sobrescrevendo o método obrigatório da classe pai (Polimorfismo)
-    obterDetalhes() {
-        console.log(`Carro: ${this.marca} ${this.modelo} | Ano: ${this.ano} | Portas: ${this.numeroDePortas}`);
-    }
-
-    // Método específico do Carro
-    abrirPortaMalas() {
-        console.log(`O porta-malas do ${this.modelo} foi aberto.`);
-    }
-}
-
-/**
- * Classe 'Moto' que também herda de 'Veiculo'.
- */
-class Moto extends Veiculo {
-    constructor(marca, modelo, ano, cilindradas) {
-        // Chama o construtor de Veiculo
-        super(marca, modelo, ano);
-
-        // Atributo específico da Moto
-        this.cilindradas = cilindradas;
-    }
-
-    // Sobrescrevendo o método obrigatório
-    obterDetalhes() {
-        console.log(`Moto: ${this.marca} ${this.modelo} | Ano: ${this.ano} | CC: ${this.cilindradas}`);
-    }
-
-    // Método específico da Moto
-    empinar() {
-        console.log(`A ${this.modelo} está empinando!`);
-    }
-}
-
-/*
- * ========================================
- * 3) CRIAÇÃO DAS INSTÂNCIAS (OBJETOS)
- * ========================================
- */
-
-console.log("--- Criando Instâncias ---");
-
-// Instância 1 (da classe Carro)
-const meuCelta = new Carro('Chevrolet', 'Celta', 2010, 2);
-
-// Instância 2 (da classe Moto)
-const minhaXJ6 = new Moto('Yamaha', 'XJ6', 2015, 600);
-
-// Instância 3 (da classe Carro)
-const meuGol = new Carro('Volkswagen', 'Gol', 2020, 4);
-
-console.log("\n--- Testando Métodos ---");
-
-// Testando a Instância 1
-meuCelta.obterDetalhes();
-meuCelta.ligar();
-meuCelta.abrirPortaMalas();
-
-console.log("---");
-
-// Testando a Instância 2
-minhaXJ6.obterDetalhes();
-minhaXJ6.ligar();
-minhaXJ6.empinar();
-
-console.log("---");
-
-// Testando a Instância 3
-meuGol.obterDetalhes();
-meuGol.desligar();
+console.log('\nAlunos Aprovados (Nota >= 6):');
+console.table(alunosAprovados);
