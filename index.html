@@ -3,67 +3,35 @@
 
 <head>
     <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Exercício AJAX - Lista de Alunos</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #f4f4f4;
-            display: flex;
-            justify-content: center;
-            padding-top: 40px;
-        }
-
-        .container {
-            width: 80%;
-            max-width: 600px;
-            background-color: #fff;
-            padding: 20px;
-            border-radius: 8px;
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-        }
-
-        h1 {
-            text-align: center;
-        }
-
-        #lista-alunos {
-            list-style: none;
-            padding: 0;
-        }
-
-        #lista-alunos li {
-            padding: 10px;
-            border-bottom: 1px solid #ddd;
-        }
-
-        #lista-alunos li:last-child {
-            border-bottom: none;
-        }
-
-        #loading {
-            text-align: center;
-            font-weight: bold;
-            color: #007bff;
-        }
-
-        .error {
-            text-align: center;
-            font-weight: bold;
-            color: #dc3545;
-        }
-    </style>
+    <title>Meu Github</title>
+    <link rel="stylesheet" href="main.css">
 </head>
 
 <body>
-
-    <div class="container">
-        <h1>Lista de Alunos (via AJAX)</h1>
-
-        <ul id="lista-alunos">
-            <li id="loading">Carregando dados...</li>
-        </ul>
-    </div>
+    <header>
+        <div class="container">
+            <img class="profile-avatar" src="https://via.placeholder.com/180x180" alt="Avatar" id="avatar">
+            <h1 class="profile-name" id="name">Carregando...</h1>
+            <h2 class="profile-username" id="username"></h2>
+            <ul class="numbers">
+                <li class="numbers-item">
+                    <h4>Repositórios</h4>
+                    <span id="repos">0</span>
+                </li>
+                <li class="numbers-item">
+                    <h4>Seguidores</h4>
+                    <span id="followers">0</span>
+                </li>
+                <li class="numbers-item">
+                    <h4>Seguindo</h4>
+                    <span id="following">0</span>
+                </li>
+            </ul>
+            <a href="#" class="profile-link" id="link" target="_blank" rel="noopener noreferrer">Ver no Github</a>
+        </div>
+    </header>
 
     <script src="main.js"></script>
 </body>
