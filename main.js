@@ -1,65 +1,127 @@
-// Aguarda o DOM (a página HTML) ser completamente carregado
-document.addEventListener('DOMContentLoaded', () => {
-    // Chama a função principal que busca e exibe os dados
-    carregarAlunos();
-});
+/*
+ * ========================================
+ * 1) CRIAÇÃO DA ABSTRAÇÃO (CLASSE PAI)
+ * ========================================
+ */
 
-// 1) Adaptar o projeto para preencher dados via requisição Ajax
-// 2) Usar try...catch e Fetch API
-
-async function carregarAlunos() {
-    // Seleciona os elementos do HTML que vamos manipular
-    const lista = document.getElementById('lista-alunos');
-    const loading = document.getElementById('loading');
-
-    // Define a URL da API de onde vamos buscar os dados (JSONPlaceholder)
-    const url = 'https://jsonplaceholder.typicode.com/users';
-
-    // 2) Bloco try...catch para tratar erros
-    try {
-        // --- Início do Bloco TRY ---
-        // Código que pode falhar (a requisição de rede)
-
-        // 1. Faz a requisição à API usando fetch e aguarda (await) a resposta
-        const response = await fetch(url);
-
-        // 2. Verifica se a resposta da rede foi bem-sucedida
-        if (!response.ok) {
-            // Se a resposta não for "ok" (ex: erro 404, 500), disparamos um erro
-            throw new Error(`Erro na requisição: ${response.statusText}`);
+/**
+ * Abstração de um Veículo.
+ * Esta classe serve como base (pai) para outros tipos de veículos.
+ * Ela contém os atributos e métodos que todos os veículos compartilham.
+ */
+class Veiculo {
+    constructor(marca, modelo, ano) {
+        if (new.target === Veiculo) {
+            throw new Error("Não é possível instanciar a classe abstrata 'Veiculo' diretamente.");
         }
+        this.marca = marca;
+        this.modelo = modelo;
+        this.ano = ano;
+    }
 
-        // 3. Converte a resposta em JSON e aguarda (await)
-        const dados = await response.json();
+    // Método que será compartilhado por todas as classes filhas
+    ligar() {
+        console.log(`O veículo ${this.modelo} está ligando o motor.`);
+    }
 
-        // 4. Remove a mensagem "Carregando..."
-        loading.remove();
+    // Método que será compartilhado por todas as classes filhas
+    desligar() {
+        console.log(`O veículo ${this.modelo} está desligando o motor.`);
+    }
 
-        // 5. Itera sobre os dados recebidos e os adiciona na lista
-        dados.forEach(aluno => {
-            // Cria um novo item de lista (<li>)
-            const li = document.createElement('li');
-
-            // Adiciona o conteúdo ao <li>
-            li.innerHTML = `
-                <strong>${aluno.name}</strong><br>
-                <small>E-mail: ${aluno.email} | Telefone: ${aluno.phone}</small>
-            `;
-
-            // Adiciona o <li> à <ul> no HTML
-            lista.appendChild(li);
-        });
-
-        // --- Fim do Bloco TRY ---
-
-    } catch (error) {
-        // --- Início do Bloco CATCH ---
-        // Este bloco só é executado se um erro ocorrer no bloco TRY
-
-        console.error('Falha ao carregar alunos:', error); // Loga o erro no console
-
-        // Exibe uma mensagem de erro amigável para o usuário no HTML
-        loading.innerText = 'Ocorreu um erro ao carregar os dados. Tente novamente mais tarde.';
-        loading.className = 'error'; // Aplica a classe de estilo de erro
+    // Método "abstrato" (feito para ser sobrescrito pelas classes filhas)
+    obterDetalhes() {
+        throw new Error("O método 'obterDetalhes()' deve ser implementado pela classe filha.");
     }
 }
+
+/*
+ * ========================================
+ * 2) CRIAÇÃO DAS CLASSES HERDEIRAS (FILHAS)
+ * ========================================
+ */
+
+/**
+ * Classe 'Carro' que herda de 'Veiculo'.
+ * Ela usa a palavra-chave 'extends' para herdar
+ * e 'super()' para chamar o construtor da classe pai.
+ */
+class Carro extends Veiculo {
+    constructor(marca, modelo, ano, numeroDePortas) {
+        // 'super' chama o construtor da classe Pai (Veiculo)
+        super(marca, modelo, ano);
+
+        // Atributo específico do Carro
+        this.numeroDePortas = numeroDePortas;
+    }
+
+    // Sobrescrevendo o método obrigatório da classe pai (Polimorfismo)
+    obterDetalhes() {
+        console.log(`Carro: ${this.marca} ${this.modelo} | Ano: ${this.ano} | Portas: ${this.numeroDePortas}`);
+    }
+
+    // Método específico do Carro
+    abrirPortaMalas() {
+        console.log(`O porta-malas do ${this.modelo} foi aberto.`);
+    }
+}
+
+/**
+ * Classe 'Moto' que também herda de 'Veiculo'.
+ */
+class Moto extends Veiculo {
+    constructor(marca, modelo, ano, cilindradas) {
+        // Chama o construtor de Veiculo
+        super(marca, modelo, ano);
+
+        // Atributo específico da Moto
+        this.cilindradas = cilindradas;
+    }
+
+    // Sobrescrevendo o método obrigatório
+    obterDetalhes() {
+        console.log(`Moto: ${this.marca} ${this.modelo} | Ano: ${this.ano} | CC: ${this.cilindradas}`);
+    }
+
+    // Método específico da Moto
+    empinar() {
+        console.log(`A ${this.modelo} está empinando!`);
+    }
+}
+
+/*
+ * ========================================
+ * 3) CRIAÇÃO DAS INSTÂNCIAS (OBJETOS)
+ * ========================================
+ */
+
+console.log("--- Criando Instâncias ---");
+
+// Instância 1 (da classe Carro)
+const meuCelta = new Carro('Chevrolet', 'Celta', 2010, 2);
+
+// Instância 2 (da classe Moto)
+const minhaXJ6 = new Moto('Yamaha', 'XJ6', 2015, 600);
+
+// Instância 3 (da classe Carro)
+const meuGol = new Carro('Volkswagen', 'Gol', 2020, 4);
+
+console.log("\n--- Testando Métodos ---");
+
+// Testando a Instância 1
+meuCelta.obterDetalhes();
+meuCelta.ligar();
+meuCelta.abrirPortaMalas();
+
+console.log("---");
+
+// Testando a Instância 2
+minhaXJ6.obterDetalhes();
+minhaXJ6.ligar();
+minhaXJ6.empinar();
+
+console.log("---");
+
+// Testando a Instância 3
+meuGol.obterDetalhes();
+meuGol.desligar();
